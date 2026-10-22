@@ -1,0 +1,16 @@
+{
+  "name": "shopbot",
+  "version": "1.0.0",
+  "description": "Auto-reply assistant for small business owners selling on WhatsApp/social media",
+  "main": "src/bot.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/cli.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "sql.js": "^1.10.3"
+  },
+  "keywords": ["whatsapp", "bot", "autoreply", "small-business"],
+  "license": "MIT"
+}
