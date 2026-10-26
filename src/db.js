@@ -35,6 +35,11 @@ async function initDb() {
         keywords TEXT NOT NULL,
         answer TEXT NOT NULL
       );
+
+      CREATE TABLE IF NOT EXISTS item_images (
+        image_hash TEXT PRIMARY KEY,
+        item_name TEXT NOT NULL
+      );
     `);
     
     return db;
@@ -132,6 +137,24 @@ async function findItemByNameOrKeyword(query) {
   return null;
 }
 
+async function linkImageToItem(imageHash, itemName) {
+  await initDb();
+  runExec(`
+    INSERT INTO item_images (image_hash, item_name) VALUES (?, ?)
+    ON CONFLICT(image_hash) DO UPDATE SET item_name = excluded.item_name
+  `, [imageHash, itemName]);
+}
+
+async function findItemByImageHash(imageHash) {
+  await initDb();
+  const results = runQuery(`
+    SELECT items.* FROM item_images
+    JOIN items ON items.name = item_images.item_name
+    WHERE item_images.image_hash = ?
+  `, [imageHash]);
+  return results[0] || null;
+}
+
 async function findFaq(query) {
   await initDb();
   const lowerQuery = query.toLowerCase();
@@ -154,6 +177,8 @@ module.exports = {
   listFaqs,
   addFaq,
   findItemByNameOrKeyword,
+  linkImageToItem,
+  findItemByImageHash,
   findFaq,
   initDb,
   resetDb

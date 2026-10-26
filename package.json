@@ -5,11 +5,14 @@
   "main": "src/bot.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node src/cli.js",
-    "test": "node --test test/*.test.js"
+    "start": "node --env-file=.env src/whatsapp.js",
+    "cli": "node --env-file=.env src/cli.js",
+    "test": "node --env-file=.env --test test/*.test.js"
   },
   "dependencies": {
-    "sql.js": "^1.10.3"
+    "qrcode-terminal": "^0.12.0",
+    "sql.js": "^1.10.3",
+    "whatsapp-web.js": "^1.26.0"
   },
   "keywords": ["whatsapp", "bot", "autoreply", "small-business"],
   "license": "MIT"

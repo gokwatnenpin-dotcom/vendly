@@ -86,10 +86,10 @@ describe('Bot reply engine', () => {
     assert.strictEqual(result.handoff, false);
   });
 
-  test('fallback returns handoff true', async () => {
+  test('fallback returns a general help reply without handoff', async () => {
     const result = await reply('random unknown message');
-    assert.strictEqual(result.text, "Sorry, I didn't understand that. Let me get the owner to help you.");
-    assert.strictEqual(result.handoff, true);
+    assert.strictEqual(result.text, "Thanks for your message! I'm here to help with product inquiries, pricing, and orders. Could you tell me more about what you're looking for?");
+    assert.strictEqual(result.handoff, false);
   });
 
   test('price change reflected immediately', async () => {
